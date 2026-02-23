@@ -8,12 +8,23 @@ image:
   tag: "1.0"
   pullPolicy: IfNotPresent
 
+imagePullSecrets: []
+
 service:
   type: ClusterIP
   port: 5000
 
 env:
-  value: dev
+  - name: ENV
+    value: "dev"
+
+probes:
+  liveness:
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 5
 
 resources:
   requests:
