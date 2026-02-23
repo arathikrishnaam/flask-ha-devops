@@ -1,0 +1,21 @@
+{{- if .Values.httpRoute.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "flask-chart.fullname" . }}-ingress
+  labels:
+    app.kubernetes.io/name: {{ include "flask-chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  rules:
+    - host: {{ .Values.httpRoute.host | default "localhost" }}
+      http:
+        paths:
+          - path: {{ .Values.httpRoute.path | default "/" }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "flask-chart.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}

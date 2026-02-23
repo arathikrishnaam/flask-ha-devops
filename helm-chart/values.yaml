@@ -1,0 +1,34 @@
+replicaCount: 3
+
+autoscaling:
+  enabled: false
+
+image:
+  repository: arathikrishnam/flask-app
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 5000
+
+env:
+  value: dev
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+serviceAccount:
+  create: false
+  name: ""
+
+httpRoute:
+  enabled: false
+
+ingress:
+  enabled: false
